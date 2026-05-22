@@ -39,7 +39,7 @@ export function BankPartners() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">
           {banks.map((bank, index) => (
             <motion.div
-              key={bank}
+              key={bank.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
