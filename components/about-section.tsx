@@ -58,7 +58,7 @@ export function AboutSection() {
             <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
               Rade Enterprises is a leading financial consultancy firm dedicated to 
               providing comprehensive loan assistance and financial advisory services. 
-              With years of experience in the industry, we have helped thousands of 
+              With 20+ years of experience in the industry, we have helped thousands of 
               individuals and businesses achieve their financial goals.
             </p>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">

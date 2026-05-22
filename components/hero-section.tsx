@@ -59,7 +59,7 @@ export function HeroSection() {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            Personal, Home, Business, Car and Property Loans with professional guidance. 
+            Personal, Home, Business, Working Capital and Property Loans with professional guidance. 
             Your financial goals, our expertise.
           </motion.p>
 
