@@ -6,6 +6,8 @@ import { motion } from "framer-motion"
 import { Send, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+
 import {
   Select,
   SelectContent,
@@ -20,7 +22,6 @@ const loanTypes = [
   { value: "business", label: "Business Loan" },
   { value: "car", label: "Car Loan" },
   { value: "property", label: "Loan Against Property" },
-
   { value: "working_capital", label: "Working Capital (OD / CC)" },
   { value: "cgtmse", label: "CGTMSE Loan" },
   { value: "machinery", label: "Machinery Purchase Loan" },
@@ -32,53 +33,70 @@ export function QuickApplyForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [formData, setFormData] = useState({
-  name: "",
-  phone: "",
-  loanType: "",
-})
+    name: "",
+    phone: "",
+    email: "",
+    city: "",
+    loanType: "",
+    amount: "",
+    occupation: "",
+    income: "",
+    notes: "",
+  })
 
   const handleSubmit = async (
-  e: React.FormEvent<HTMLFormElement>
-) => {
-  e.preventDefault()
-  setIsSubmitting(true)
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault()
+    setIsSubmitting(true)
 
-  try {
-    await emailjs.send(
-      "rade_gmail",
-      "template_s1yx9dl",
-      {
-        name: formData.name,
-        phone: formData.phone,
-        loanType: formData.loanType,
-      },
-      "y0fTAEJTXkOA1dvT6"
-    )
+    try {
+      await emailjs.send(
+        "rade_gmail",
+        "template_s1yx9dl",
+        {
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          city: formData.city,
+          loanType: formData.loanType,
+          amount: formData.amount,
+          occupation: formData.occupation,
+          income: formData.income,
+          notes: formData.notes,
+        },
+        "y0fTAEJTXkOA1dvT6"
+      )
 
-    setIsSubmitted(true)
+      setIsSubmitted(true)
 
-    setFormData({
-      name: "",
-      phone: "",
-      loanType: "",
-    })
-  } catch (error) {
-    console.error(error)
-    alert("Failed to send enquiry.")
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        city: "",
+        loanType: "",
+        amount: "",
+        occupation: "",
+        income: "",
+        notes: "",
+      })
+    } catch (error) {
+      console.error(error)
+      alert("Failed to send enquiry.")
+    }
+
+    setIsSubmitting(false)
   }
 
-  setIsSubmitting(false)
-}
-
   return (
-    <section className="py-24 bg-secondary/30 relative overflow-hidden" id="apply">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2" />
-      
+    <section
+      className="py-24 bg-secondary/30 relative overflow-hidden"
+      id="apply"
+    >
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -89,12 +107,13 @@ export function QuickApplyForm() {
             <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block">
               Get Started
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Quick Apply
             </h2>
+
             <p className="text-muted-foreground max-w-xl mx-auto text-lg">
-              Fill in your details and our team will contact you within 24 hours 
-              with the best loan options for your needs.
+              Fill in your details and our team will contact you.
             </p>
           </motion.div>
 
@@ -102,161 +121,167 @@ export function QuickApplyForm() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative p-8 md:p-12 rounded-3xl bg-card border border-border/50"
+            transition={{ duration: 0.6 }}
+            className="p-8 md:p-12 rounded-3xl bg-card border border-border/50"
           >
-            {/* Corner accents */}
-            <div className="absolute top-0 left-8 w-16 h-px bg-primary/50" />
-            <div className="absolute top-0 left-0 w-px h-16 bg-primary/50" />
-            <div className="absolute bottom-0 right-8 w-16 h-px bg-primary/50" />
-            <div className="absolute bottom-0 right-0 w-px h-16 bg-primary/50" />
 
             {isSubmitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-12"
-              >
-                <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle className="w-10 h-10 text-primary" />
-                </div>
-                <h3 className="text-2xl font-semibold text-foreground mb-4">
+              <div className="text-center py-10">
+                <CheckCircle className="w-14 h-14 text-primary mx-auto mb-4" />
+                <h3 className="text-2xl font-semibold mb-3">
                   Application Submitted!
                 </h3>
-                <p className="text-muted-foreground max-w-md mx-auto">
-                  Thank you for your interest. Our team will review your application 
-                  and contact you shortly with the best loan options.
+                <p className="text-muted-foreground">
+                  Our team will contact you shortly.
                 </p>
+
                 <Button
-                  variant="outline"
-                  className="mt-8 border-primary/50 text-primary hover:bg-primary/10"
+                  className="mt-6"
                   onClick={() => setIsSubmitted(false)}
                 >
-                  Submit Another Application
+                  Submit Another
                 </Button>
-              </motion.div>
+              </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-6"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-    <div className="space-y-2">
-      <label className="text-sm font-medium text-foreground">
-        Full Name
-      </label>
+                  <Input
+                    required
+                    placeholder="Full Name"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        name: e.target.value,
+                      })
+                    }
+                  />
 
-      <Input
-        required
-        placeholder="Enter your full name"
-        value={formData.name}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            name: e.target.value,
-          })
-        }
-        className="bg-secondary/50 border-border/50 focus:border-primary h-12"
-      />
-    </div>
+                  <Input
+                    required
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        phone: e.target.value,
+                      })
+                    }
+                  />
 
-    <div className="space-y-2">
-      <label className="text-sm font-medium text-foreground">
-        Phone Number
-      </label>
+                  <Input
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        email: e.target.value,
+                      })
+                    }
+                  />
 
-      <Input
-        required
-        type="tel"
-        placeholder="Enter your phone number"
-        value={formData.phone}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            phone: e.target.value,
-          })
-        }
-        className="bg-secondary/50 border-border/50 focus:border-primary h-12"
-      />
-    </div>
+                  <Input
+                    placeholder="City"
+                    value={formData.city}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        city: e.target.value,
+                      })
+                    }
+                  />
 
-  </div>
+                  <Input
+                    placeholder="Loan Amount"
+                    value={formData.amount}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        amount: e.target.value,
+                      })
+                    }
+                  />
 
-  <div className="space-y-2">
-    <label className="text-sm font-medium text-foreground">
-      Loan Type
-    </label>
+                  <Input
+                    placeholder="Occupation / Business"
+                    value={formData.occupation}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        occupation: e.target.value,
+                      })
+                    }
+                  />
 
-    <Select
-      required
-      onValueChange={(value) =>
-        setFormData({
-          ...formData,
-          loanType: value,
-        })
-      }
-    >
-      <SelectTrigger className="bg-secondary/50 border-border/50 focus:border-primary h-12">
-        <SelectValue placeholder="Select loan type" />
-      </SelectTrigger>
+                  <Input
+                    placeholder="Monthly Income / Turnover"
+                    value={formData.income}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        income: e.target.value,
+                      })
+                    }
+                  />
 
-      <SelectContent>
-        {loanTypes.map((type) => (
-          <SelectItem
-            key={type.value}
-            value={type.value}
-          >
-            {type.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  </div>
+                  <Select
+                    onValueChange={(value) =>
+                      setFormData({
+                        ...formData,
+                        loanType: value,
+                      })
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Loan Type" />
+                    </SelectTrigger>
 
-  <Button
-    type="submit"
-    size="lg"
-    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-14 text-lg font-semibold"
-    disabled={isSubmitting}
-  >
-    {isSubmitting ? (
-      <span className="flex items-center">
-        <svg
-          className="animate-spin -ml-1 mr-3 h-5 w-5"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
+                    <SelectContent>
+                      {loanTypes.map((type) => (
+                        <SelectItem
+                          key={type.value}
+                          value={type.value}
+                        >
+                          {type.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
 
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-          />
-        </svg>
+                <Textarea
+                  placeholder="Requirement / Notes"
+                  value={formData.notes}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      notes: e.target.value,
+                    })
+                  }
+                />
 
-        Submitting...
-      </span>
-    ) : (
-      <>
-        Submit Application
-        <Send className="ml-2 h-5 w-5" />
-      </>
-    )}
-  </Button>
-
-  <p className="text-xs text-muted-foreground text-center mt-4">
-    By submitting this form, you agree to be contacted by our team
-    regarding your loan inquiry.
-  </p>
-</form>
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    "Submitting..."
+                  ) : (
+                    <>
+                      Submit Application
+                      <Send className="ml-2 h-5 w-5" />
+                    </>
+                  )}
+                </Button>
+              </form>
             )}
+
           </motion.div>
         </div>
       </div>
