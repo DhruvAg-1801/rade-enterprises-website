@@ -5,8 +5,8 @@ import { Award, TrendingUp, Users, ShieldCheck } from "lucide-react"
 
 const stats = [
   { value: "20+", label: "Years Experience" },
-  { value: "5000+", label: "Happy Clients" },
-  { value: "₹500Cr+", label: "Loans Disbursed" },
+  { value: "2500+", label: "Happy Clients" },
+  { value: "₹1000Cr+", label: "Loans Disbursed" },
   { value: "20+", label: "Bank Partners" },
 ]
 
