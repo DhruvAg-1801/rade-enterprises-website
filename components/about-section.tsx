@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Award, TrendingUp, Users, ShieldCheck } from "lucide-react"
 
 const stats = [
-  { value: "10+", label: "Years Experience" },
+  { value: "20+", label: "Years Experience" },
   { value: "5000+", label: "Happy Clients" },
   { value: "₹500Cr+", label: "Loans Disbursed" },
   { value: "20+", label: "Bank Partners" },

@@ -70,7 +70,7 @@ export function WhyChooseUs() {
             Your Trusted Financial Partner
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            With years of experience in financial consultancy, we provide unmatched service 
+            With 20+ years of experience in financial consultancy, we provide unmatched service 
             and expertise to help you achieve your financial dreams.
           </p>
         </motion.div>
